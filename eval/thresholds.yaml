@@ -1,0 +1,15 @@
+# Floors for the CI quality gate:  python -m eval.run_eval --mode hybrid_rerank --gate
+#
+# Baseline when these were set (36 questions, top-5, hybrid_rerank):
+#   hit@k 1.000 | mrr 0.905 | context_precision 0.862 | context_recall 0.917
+#
+# Floors sit a little below the baseline so ordinary run-to-run and platform
+# noise (CPU vs CPU, different library builds) does not fail a pull request,
+# while a real regression, such as a broken chunker or a wrong model, does.
+# Raise them when retrieval genuinely improves.
+mode: hybrid_rerank
+min:
+  hit@k: 0.95
+  mrr: 0.85
+  context_precision: 0.80
+  context_recall: 0.85

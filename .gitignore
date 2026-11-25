@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.pytest_cache/
+.ruff_cache/
+
+# Rebuilt from data/corpus/MANIFEST.json by scripts/fetch_corpus.py
+data/corpus/vllm/
+# Derived artefacts: rebuilt by `python -m rag index`
+data/index/
+data/cache/
+eval/results/
+# Personal documents: never publish these
+*.pdf

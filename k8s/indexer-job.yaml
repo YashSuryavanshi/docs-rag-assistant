@@ -1,0 +1,23 @@
+# One-shot Job: fetch the pinned corpus and (incrementally) index it into Qdrant.
+# Re-run it after a docs update; unchanged files are skipped.
+#   kubectl -n rag delete job rag-indexer --ignore-not-found && kubectl apply -f k8s/indexer-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rag-indexer
+  namespace: rag
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: indexer
+          image: docs-rag-assistant:latest
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c", "python scripts/fetch_corpus.py --ref pinned && python -m rag index"]
+          envFrom:
+            - configMapRef: { name: rag-config }
+          resources:
+            requests: { cpu: "1", memory: 2Gi }
+            limits: { memory: 3Gi }

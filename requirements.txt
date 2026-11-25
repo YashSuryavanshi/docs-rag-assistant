@@ -1,0 +1,12 @@
+# CPU PyTorch is installed separately (see README / Dockerfile):
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch
+sentence-transformers>=3.0
+qdrant-client>=1.10
+rank-bm25>=0.2.2
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+pydantic-settings>=2.2
+openai>=1.30
+pyyaml>=6.0
+numpy>=1.26

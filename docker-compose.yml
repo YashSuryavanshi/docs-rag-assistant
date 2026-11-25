@@ -1,0 +1,59 @@
+# Whole stack on one machine, no Kubernetes needed:
+#
+#   docker compose up --build        # Qdrant -> indexer (runs once) -> API on http://localhost:8080
+#   docker compose down              # stop; the index and embedding cache survive in volumes
+#   docker compose down -v           # stop and delete the index and cache too
+#
+# After the docs change, re-index and restart the API (it builds its keyword index at startup):
+#   docker compose run --rm indexer && docker compose restart api
+#
+# Optional answer generation: put these in a .env file next to this one (see .env.example).
+# A vLLM server running on the host is reachable from containers as host.docker.internal:
+#   RAG_LLM_BASE_URL=http://host.docker.internal:8000/v1
+#   RAG_LLM_MODEL=Qwen/Qwen2.5-7B-Instruct
+
+x-rag-env: &rag-env
+  RAG_QDRANT_URL: http://qdrant:6333
+  RAG_LLM_BASE_URL: ${RAG_LLM_BASE_URL:-}
+  RAG_LLM_MODEL: ${RAG_LLM_MODEL:-}
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    ports:
+      - "6333:6333"          # dashboard at http://localhost:6333/dashboard
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  # One-shot job, same idea as k8s/indexer-job.yaml: fetch the pinned docs, index incrementally, exit.
+  indexer:
+    build: .
+    image: docs-rag-assistant:latest
+    command: ["sh", "-c", "python scripts/fetch_corpus.py --ref pinned && python -m rag index"]
+    environment: *rag-env
+    volumes:
+      - embedding_cache:/app/data/cache   # reruns re-embed only changed chunks
+    depends_on:
+      - qdrant
+    restart: "on-failure:3"              # covers Qdrant still starting when the indexer first connects
+
+  api:
+    image: docs-rag-assistant:latest
+    ports:
+      - "8080:8080"
+    environment: *rag-env
+    volumes:
+      - embedding_cache:/app/data/cache
+    depends_on:
+      indexer:
+        condition: service_completed_successfully   # the API cannot start against a missing collection
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:8080/health/ready')"]
+      interval: 10s
+      timeout: 5s
+      start_period: 60s
+      retries: 6
+
+volumes:
+  qdrant_data:
+  embedding_cache:

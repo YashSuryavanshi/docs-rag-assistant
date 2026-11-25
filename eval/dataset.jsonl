@@ -1,0 +1,36 @@
+{"id": "q01", "type": "natural", "question": "How do I enable automatic prefix caching in vLLM?", "relevant": ["features/automatic_prefix_caching.md", "design/prefix_caching.md"]}
+{"id": "q02", "type": "natural", "question": "How does vLLM hash KV cache blocks so they can be reused across requests?", "relevant": ["design/prefix_caching.md", "features/automatic_prefix_caching.md"]}
+{"id": "q03", "type": "natural", "question": "How can I store the KV cache in a lower precision to fit more tokens in GPU memory?", "relevant": ["features/quantization/quantized_kvcache.md"]}
+{"id": "q04", "type": "identifier", "question": "--kv-cache-dtype fp8_e4m3", "relevant": ["features/quantization/quantized_kvcache.md", "features/quantization/quark.md"]}
+{"id": "q05", "type": "natural", "question": "How do I serve one base model with several LoRA adapters?", "relevant": ["features/lora.md"]}
+{"id": "q06", "type": "natural", "question": "Can LoRA adapters be loaded or unloaded while the server is running?", "relevant": ["features/lora.md", "design/lora_resolver_plugins.md"]}
+{"id": "q07", "type": "natural", "question": "How do I use n-gram speculative decoding that looks up tokens from the prompt?", "relevant": ["features/speculative_decoding/n_gram.md", "features/speculative_decoding/README.md"]}
+{"id": "q08", "type": "natural", "question": "How do I configure EAGLE speculative decoding with a draft head?", "relevant": ["features/speculative_decoding/eagle.md", "features/speculative_decoding/README.md"]}
+{"id": "q09", "type": "natural", "question": "How can I measure how many draft tokens are accepted in speculative decoding?", "relevant": ["features/speculative_decoding/acceptance_metrics.md"]}
+{"id": "q10", "type": "natural", "question": "How do I use multi-token prediction (MTP) heads for speculative decoding?", "relevant": ["features/speculative_decoding/mtp.md", "features/speculative_decoding/README.md"]}
+{"id": "q11", "type": "natural", "question": "My model does not fit in GPU memory. How can I reduce vLLM's memory usage?", "relevant": ["configuration/conserving_memory.md"]}
+{"id": "q12", "type": "natural", "question": "Which settings trade off throughput against latency, such as chunked prefill and the batch size?", "relevant": ["configuration/optimization.md"]}
+{"id": "q13", "type": "natural", "question": "How do I force the model to produce JSON that follows a schema?", "relevant": ["features/structured_outputs.md"]}
+{"id": "q14", "type": "natural", "question": "How do I enable function calling in the OpenAI-compatible server?", "relevant": ["features/tool_calling.md"]}
+{"id": "q15", "type": "identifier", "question": "--tool-call-parser", "relevant": ["features/tool_calling.md"]}
+{"id": "q16", "type": "natural", "question": "How do I pass audio input to a multimodal model?", "relevant": ["features/multimodal_inputs.md"]}
+{"id": "q17", "type": "natural", "question": "How do I run the vLLM OpenAI-compatible server in a Docker container?", "relevant": ["deployment/docker.md"]}
+{"id": "q18", "type": "natural", "question": "How do I deploy vLLM on Kubernetes?", "relevant": ["deployment/k8s.md", "deployment/frameworks/helm.md"]}
+{"id": "q19", "type": "natural", "question": "Which Prometheus metrics does the vLLM server expose for monitoring?", "relevant": ["usage/metrics.md", "design/metrics.md"]}
+{"id": "q20", "type": "natural", "question": "How can I load balance requests across several vLLM servers using nginx?", "relevant": ["deployment/nginx.md"]}
+{"id": "q21", "type": "natural", "question": "How do I split a large model across GPUs and nodes with tensor and pipeline parallelism?", "relevant": ["serving/parallelism_scaling.md"]}
+{"id": "q22", "type": "identifier", "question": "--data-parallel-size", "relevant": ["serving/data_parallel_deployment.md"]}
+{"id": "q23", "type": "natural", "question": "What is disaggregated prefill and why would I use it?", "relevant": ["features/disagg_prefill.md"]}
+{"id": "q24", "type": "natural", "question": "How can I release GPU memory between RL training steps without shutting down the engine?", "relevant": ["features/sleep_mode.md"]}
+{"id": "q25", "type": "natural", "question": "How do I get reproducible, deterministic outputs from vLLM?", "relevant": ["usage/reproducibility.md", "features/batch_invariance.md"]}
+{"id": "q26", "type": "identifier", "question": "VLLM_LOGGING_LEVEL=DEBUG", "relevant": ["usage/troubleshooting.md"]}
+{"id": "q27", "type": "natural", "question": "How do I transcribe an audio file through the speech-to-text API?", "relevant": ["serving/online_serving/speech_to_text.md", "serving/online_serving/openai_compatible_server.md"]}
+{"id": "q28", "type": "natural", "question": "How does PagedAttention lay out keys and values in memory?", "relevant": ["design/paged_attention.md"]}
+{"id": "q29", "type": "natural", "question": "How are CUDA graphs captured and which modes does vLLM support?", "relevant": ["design/cuda_graphs.md"]}
+{"id": "q30", "type": "natural", "question": "How do I run a model stored in GGUF format?", "relevant": ["features/quantization/gguf.md"]}
+{"id": "q31", "type": "natural", "question": "How do I extend a model's context window with YaRN rope scaling?", "relevant": ["features/context_extension.md"]}
+{"id": "q32", "type": "natural", "question": "How do I return a thinking model's reasoning separately from its final answer?", "relevant": ["features/reasoning_outputs.md"]}
+{"id": "q33", "type": "natural", "question": "How do I protect the server with an API key, and what are the security risks of exposing it?", "relevant": ["usage/security.md", "serving/online_serving/openai_compatible_server.md"]}
+{"id": "q34", "type": "natural", "question": "How do I debug NCCL errors and hangs when running on multiple GPUs?", "relevant": ["usage/troubleshooting.md", "serving/distributed_troubleshooting.md"]}
+{"id": "q35", "type": "natural", "question": "How do I serve an embedding model and get vectors for my text?", "relevant": ["models/pooling_models/embed.md", "models/pooling_models/README.md"]}
+{"id": "q36", "type": "natural", "question": "How do I run offline batch inference in Python with the LLM class?", "relevant": ["serving/offline_inference.md", "getting_started/quickstart.md"]}

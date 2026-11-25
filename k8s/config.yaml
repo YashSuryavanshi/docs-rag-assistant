@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rag
+---
+# Non-secret settings shared by the API and the indexing Job.
+# Any field of rag/config.py can be set here with the RAG_ prefix.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-config
+  namespace: rag
+data:
+  RAG_QDRANT_URL: "http://qdrant:6333"
+  RAG_CHUNK_SIZE: "200"
+  RAG_CHUNK_OVERLAP: "40"
+  RAG_FINAL_K: "5"
+  # Point at an in-cluster vLLM Service to enable generated answers:
+  # RAG_LLM_BASE_URL: "http://vllm:8000/v1"
+  # RAG_LLM_MODEL: "Qwen/Qwen2.5-7B-Instruct"
